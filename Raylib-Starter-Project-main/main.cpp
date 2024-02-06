@@ -19,6 +19,23 @@ Vector2 ballSpeed = { 5, 5 };
 int leftScore = 0;
 int rightScore = 0;
 
+Color HexToColor(const char* hex)
+{
+    unsigned int hexValue;
+    if (sscanf_s(hex, "#%x", &hexValue) != 1) 
+    {
+        return WHITE;
+    }
+
+    Color color;
+    color.r = (hexValue >> 16) & 0xFF;
+    color.g = (hexValue >> 8) & 0xFF;
+    color.b = hexValue & 0xFF;
+    color.a = 255;
+
+    return color;
+}
+
 int main()
 {
     InitWindow(screenWidth, screenHeight, "Pong Game");
@@ -27,6 +44,7 @@ int main()
 
     while (!WindowShouldClose())
     {
+
 
         if (IsKeyDown(KEY_W) && leftPaddlePos.y > 0)
             leftPaddlePos.y -= 5;
@@ -69,8 +87,12 @@ int main()
 
         BeginDrawing();
 
-        ClearBackground(RAYWHITE);
+        ClearBackground(HexToColor("#F2CB05"));
 
+        for (int i = 0; i < screenHeight; i += 20)
+        {
+            DrawRectangle(screenWidth / 2-1, i, 3, 10, DARKGRAY);
+        }
         DrawText(TextFormat("%d", leftScore), screenWidth / 4, 20, 30, BLUE);
         DrawText(TextFormat("%d", rightScore), screenWidth * 3 / 4 - MeasureText(TextFormat("%d", rightScore), 30), 20, 30, RED);
 
@@ -80,6 +102,8 @@ int main()
 
         EndDrawing();
     }
+
+
 
     CloseWindow();
 
