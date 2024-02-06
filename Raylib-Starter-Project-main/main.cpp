@@ -28,9 +28,9 @@ Color HexToColor(const char* hex)
     }
 
     Color color;
-    color.r = (hexValue >> 16) & 0xFF;
-    color.g = (hexValue >> 8) & 0xFF;
-    color.b = hexValue & 0xFF;
+    color.r = (hexValue >> 16) + 0xFF;
+    color.g = (hexValue >> 8) + 0xFF;
+    color.b = hexValue + 0xFF;
     color.a = 255;
 
     return color;
@@ -87,18 +87,18 @@ int main()
 
         BeginDrawing();
 
-        ClearBackground(HexToColor("#F2CB05"));
+        ClearBackground(HexToColor("#010626"));
 
         for (int i = 0; i < screenHeight; i += 20)
         {
-            DrawRectangle(screenWidth / 2-1, i, 3, 10, DARKGRAY);
+            DrawRectangle(screenWidth / 2-1, i, 3, 10, HexToColor("#79F2E6"));
         }
-        DrawText(TextFormat("%d", leftScore), screenWidth / 4, 20, 30, BLUE);
-        DrawText(TextFormat("%d", rightScore), screenWidth * 3 / 4 - MeasureText(TextFormat("%d", rightScore), 30), 20, 30, RED);
+        DrawText(TextFormat("%d", leftScore), screenWidth / 4, 20, 30, HexToColor("#7630D9"));
+        DrawText(TextFormat("%d", rightScore), screenWidth * 3 / 4 - MeasureText(TextFormat("%d", rightScore), 30), 20, 30, HexToColor("#F06BF2"));
 
-        DrawRectangleRec({ leftPaddlePos.x, leftPaddlePos.y, paddleWidth, paddleHeight }, BLUE);
-        DrawRectangleRec({ rightPaddlePos.x, rightPaddlePos.y, paddleWidth, paddleHeight }, RED);
-        DrawRectangleRec({ ballPos.x, ballPos.y, ballSize, ballSize }, DARKGRAY);
+        DrawRectangleRec({ leftPaddlePos.x, leftPaddlePos.y, paddleWidth, paddleHeight }, HexToColor("#7630D9"));
+        DrawRectangleRec({ rightPaddlePos.x, rightPaddlePos.y, paddleWidth, paddleHeight }, HexToColor("#F06BF2"));
+        DrawRectangleRec({ ballPos.x, ballPos.y, ballSize, ballSize }, HexToColor("#79F2E6"));
 
         EndDrawing();
     }
